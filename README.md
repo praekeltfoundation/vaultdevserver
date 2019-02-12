@@ -1,6 +1,6 @@
-# Vaultdevserver
+# VaultDevServer
 
-**TODO: Add description**
+Test applications against a HashiCorp Vault dev server
 
 ## Installation
 
@@ -18,4 +18,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/vaultdevserver](https://hexdocs.pm/vaultdevserver).
-
