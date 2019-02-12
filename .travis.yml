@@ -48,6 +48,7 @@ jobs:
         script: mix hex.publish --yes
         on: {tags: true}
 
+      before_script: skip
       script: skip
 
 # We already have PR builds, so don't build PR branches as well.
