@@ -1,18 +1,5 @@
-defmodule Vaultdevserver do
+defmodule VaultDevServer do
   @moduledoc """
-  Documentation for Vaultdevserver.
+  TODO: Documentation for VaultDevServer.
   """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Vaultdevserver.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end

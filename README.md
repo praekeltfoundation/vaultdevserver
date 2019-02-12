@@ -10,7 +10,7 @@ by adding `vaultdevserver` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:vaultdevserver, "~> 0.1.0"}
+    {:vaultdevserver, "~> 0.1.0-beta.0"}
   ]
 end
 ```
