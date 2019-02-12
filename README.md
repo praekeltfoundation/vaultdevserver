@@ -1,5 +1,10 @@
 # VaultDevServer
 
+[![Build Status](https://travis-ci.com/praekeltfoundation/vaultdevserver.svg?branch=master)](https://travis-ci.com/praekeltfoundation/vaultdevserver)
+[![codecov](https://codecov.io/gh/praekeltfoundation/vaultdevserver/branch/master/graph/badge.svg)](https://codecov.io/gh/praekeltfoundation/vaultdevserver)
+[![Inline docs](http://inch-ci.org/github/praekeltfoundation/vaultdevserver.svg?branch=master)](http://inch-ci.org/github/praekeltfoundation/vaultdevserver)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=praekeltfoundation/vaultdevserver)](https://dependabot.com)
+
 Test applications against a HashiCorp Vault dev server
 
 ## Installation
