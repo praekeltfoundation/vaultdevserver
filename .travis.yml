@@ -11,7 +11,7 @@ jobs:
   include:
     - script:
         # This is basically `mix test` with coverage enabled.
-        - VAULT_PATH=$(pwd) mix coveralls.json --umbrella
+        - VAULT_PATH=$(pwd) mix coveralls.json
         - mix format --check-formatted
         # This will mention FIXME and TODO comments without failing, any other
         # issue fails the build.
