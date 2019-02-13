@@ -1,0 +1,57 @@
+language: elixir
+elixir: '1.8'
+otp_release: '21.2'
+
+env:
+  - VAULT_VERSION=1.0.2
+
+before_script: .ci/fetch-vault.sh
+
+jobs:
+  include:
+    - script:
+        # This is basically `mix test` with coverage enabled.
+        - VAULT_PATH=$(pwd) mix coveralls.json
+        - mix format --check-formatted
+        # This will mention FIXME and TODO comments without failing, any other
+        # issue fails the build.
+        - mix credo
+        - mix inch.report
+      after_success: bash <(curl -s https://codecov.io/bash)
+
+    # Skip Elixir 1.7 while we don't have many parallel builds
+    - elixir: '1.7'
+      # Only run tests. We do the other checks in the primary build.
+      script: VAULT_PATH=$(pwd) mix test
+
+    - elixir: '1.6'
+      otp_release: '20.3'
+      # Only run tests. We do the other checks in the primary build.
+      script: VAULT_PATH=$(pwd) mix test
+
+    - name: "dialyzer"
+      cache:
+        directories:
+          - $HOME/.mix
+          - $HOME/.pltcache
+      before_script: travis_wait .ci/build-plt-cache.sh
+      script: mix dialyzer --halt-exit-status
+
+    - stage: release
+      if: tag IS present
+
+      env:
+        # HEX_API_KEY=<secret>
+        - secure: "kptJsL3mNdC2rVSvsVfwf9vKy8bBv2+L50LUPfDlYElnBL9VrUJI9nXKPlJhmu9xzElftuwNY+iOwRSAhXo5lQUKJoRcaJUqHOb95GIEOkmudukAKVkEs6e0L8nREuX3XzbPHf+PjMOH5Q3eV1fwAzmna6L20qYSdco0SpfYAcskENtd1DaYNPwEr+iFSMEVFWkv2pwW5YBoIM513Bi4u9/kPPlBmRD94D8AF951qa7KDY+cxQZU8DU2dIDV45BDOa6Si4GPia7XCIxinAmdtfgALc/QjGM0neIKyrj8WbXEVzICygiP/dR9tmNWveD16s++h2S63th0kD16PmiKVic4004OBN4msf0sTBd1Aua6kD7ze9attmgZRGBRii76o9J5L72UdSyc6AEDol9n2lS12sIOtub/T3Vew2tpzkzPjDCBIDDPugfbpq1B4w+8TEHNUXcXKHExaPE8DwFdI50rzAX4cQCYGEGaGBmx6AT2mbmXjqEmPl9Xfj0a49R87tZjHvi1lXTJZAMLAMZIppadBtUXEseHMgNXQGU6y1cPvXIEB5rzyZ9bLh76Pf6bg6X3ptUe0uEOi6omgUP6d9BA6H3kAOl72ZHBD/O5Ac786hz97tPmf/pgwSvPeFzyeld+3jz97YS1hCPuBa7wizWYMoHx+01h6w1joK8/5mI="
+      deploy:
+        provider: script
+        script: mix hex.publish --yes
+        on: {tags: true}
+
+      before_script: skip
+      script: skip
+
+# We already have PR builds, so don't build PR branches as well.
+branches:
+  only:
+    - master
