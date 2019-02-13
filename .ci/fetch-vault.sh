@@ -42,5 +42,5 @@ unzip "${VAULT_ZIPFILE}"
 
 # Clean up
 rm hashicorp.asc "$VAULT_ZIPFILE" "$VAULT_SHAFILE" "$VAULT_SHAFILE.sig"
-gpgconf --kill gpg-agent
+gpgconf --kill gpg-agent || true
 rm -rf "$GNUPGHOME"
