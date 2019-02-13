@@ -4,9 +4,11 @@
 #
 # Available options (via env vars):
 # * VAULT_VERSION: The version of Vault to download.
+# * VAULT_ARCH:    The architecture of Vault to download (default: linux_amd64).
 set -ex
 
 VAULT_VERSION="${VAULT_VERSION:-1.0.1}"
+VAULT_ARCH="${VAULT_ARCH:-linux_amd64}"
 VAULT_BASEURL='https://releases.hashicorp.com/vault'
 
 VAULT_GPGKEY='91A6E7F85D05C65630BEF18951852D87348FFC4C'
@@ -22,7 +24,7 @@ wget "$VAULT_GPGKEY_URL" -O hashicorp.asc
 export GNUPGHOME="$(mktemp -d)"
 gpg --batch --import hashicorp.asc
 
-VAULT_ZIPFILE="vault_${VAULT_VERSION}_linux_amd64.zip"
+VAULT_ZIPFILE="vault_${VAULT_VERSION}_${VAULT_ARCH}.zip"
 VAULT_SHAFILE="vault_${VAULT_VERSION}_SHA256SUMS"
 
 # Download all the release files
