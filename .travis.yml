@@ -47,6 +47,7 @@ jobs:
         provider: script
         script: mix hex.publish --yes
         on: {tags: true}
+        skip_cleanup: true  # Don't clean up deps
 
       before_script: skip
       script: skip
