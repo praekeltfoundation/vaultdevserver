@@ -21,7 +21,8 @@ wget "$VAULT_GPGKEY_URL" -O hashicorp.asc
 [ "$(gpg --batch --with-colons --with-fingerprint hashicorp.asc 2> /dev/null \
 	| awk -F: '/^fpr:/ { print $10 }')" = "$VAULT_GPGKEY" ]
 
-export GNUPGHOME="$(mktemp -d)"
+GNUPGHOME="$(mktemp -d)"
+export GNUPGHOME
 gpg --batch --import hashicorp.asc
 
 VAULT_ZIPFILE="vault_${VAULT_VERSION}_${VAULT_ARCH}.zip"
